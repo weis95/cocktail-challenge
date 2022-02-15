@@ -1,7 +1,7 @@
 import { Dispatch } from "redux"
 import { ActionType } from "../action-types"
 import { Action } from "../actions/index"
-import { Cocktails, CocktailsDelete, CocktailsEdit } from "../models"
+import { Cocktails, CocktailsEdit } from "../models"
 
 export const editCocktail = (cocktails: Array<CocktailsEdit>) => {
     return (dispatch: Dispatch<Action>) => {
@@ -12,7 +12,7 @@ export const editCocktail = (cocktails: Array<CocktailsEdit>) => {
     }
 }
 
-export const deleteCocktail = (cocktails: Array<CocktailsDelete>) => {
+export const deleteCocktail = (cocktails: number) => {
     return (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.DELETE,

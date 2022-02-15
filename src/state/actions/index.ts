@@ -1,5 +1,5 @@
 import { ActionType } from "../action-types/index"
-import { Cocktails, CocktailsDelete, CocktailsEdit } from "../models"
+import { Cocktails, CocktailsEdit } from "../models"
 
 interface EditAction {
     type: ActionType.EDIT,
@@ -8,7 +8,7 @@ interface EditAction {
 
 interface DeleteAction {
     type: ActionType.DELETE,
-    payload: Array<CocktailsDelete>
+    payload: number
 }
 
 interface SetAction {

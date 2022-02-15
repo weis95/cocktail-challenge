@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from './state';
-import { RootState } from './state/reducers';
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from './state'
+import { RootState } from './state/reducers'
 
-import styles from "./App.module.css";
+import styles from "./App.module.css"
 
 const App: React.FC = () => {
     
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const state = useSelector((state: RootState) => state.cocktail)
     const { editCocktail, deleteCocktail, setCocktail } = bindActionCreators(actionCreators, dispatch)
 
@@ -18,17 +18,15 @@ const App: React.FC = () => {
         axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
         .then(function (response) {
             const data = []
-            for(const [index, drink] of response.data.drinks.entries()){
-                data.push({name: drink.strDrink, type: drink.strAlcoholic, glass: drink.strGlass, index})
+            for(const drink of response.data.drinks){
+                data.push({
+                    name: drink.strDrink, 
+                    type: drink.strAlcoholic, 
+                    glass: drink.strGlass})
             }
             setCocktail(data)
         })
     },[])
-
-    const edit = (value: string, index: number) => {
-        editCocktail([{name: value, index }])
-        setCocktail(state)
-    }
 
     return (
         <div className={styles.container}>
@@ -40,11 +38,10 @@ const App: React.FC = () => {
                 <div className={styles.dataContainer}>
                     {state.map((drink, key) => (
                         <React.Fragment key={key}>
-                            <input type="text" onChange={(e) => edit( e.target.value, drink.index)} value={drink.name}/>
+                            <input type="text" onChange={(e) => editCocktail([{name: e.target.value, index: key}])} value={drink.name}/>
                             <p>{drink.type}</p>
                             <p>{drink.glass}</p>
-                            <p>{key}</p>
-                            <button onClick={() => deleteCocktail([{index: key }])}>Delete</button>
+                            <button onClick={() => deleteCocktail(key)}>Delete</button>
                         </React.Fragment>) 
                     )}
                 </div>

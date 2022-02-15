@@ -2,26 +2,27 @@ import { ActionType } from "../action-types/index"
 import { Action } from "../actions"
 import { Cocktails } from "../models"
 
-const initialState = [{ name: 'Moscow Mule', type: 'Alcoholic', glass: 'Copper mug or highball glass', index: 99}];
+const initialState = [{ name: 'Moscow Mule', type: 'Alcoholic', glass: 'Copper mug or highball glass', index: 99}]
 
 const reducer = (state: Array<Cocktails> = initialState, action: Action): Array<Cocktails> => {
     switch (action.type){
         case ActionType.SET:
-            return state = action.payload;
+            return state = action.payload
+
         case ActionType.EDIT:
-            let arrayEdit = state
-            arrayEdit[action.payload[0].index].name = action.payload[0].name
-            return state = [...arrayEdit];
+            state[action.payload[0].index].name = action.payload[0].name
+            return state = [...state]
+
         case ActionType.DELETE:
-            let array = state;
-            if(action.payload[0].index === 0){
-                array.shift()
-            } else if(action.payload[0].index === array.length){
-                array.pop()
+            if(action.payload === 0){
+                state.shift()
+            } else if(action.payload === state.length - 1 ){
+                state.pop()
             } else {
-                array.splice(action.payload[0].index, 1);
+                state.splice(action.payload, 1)
             }
-            return state = [...array];
+            return state = [...state]
+
         default:
             return state
     }
