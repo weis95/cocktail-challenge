@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.container nav {
+    height: 80px;
+    border: 1px solid black;
+    width: 100%;
+}
+
+.container nav img {
+    max-height: 80px;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+
+.leftNavigation {
+    display: flex;
+    width: 100%;
+    border: 1px solid black;
+    height: 100%;
+}
+
+.dataContainer {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+@media only screen and (max-width: 760px) {
+    .container nav img {
+        max-height: 40px;
+    }
+}
